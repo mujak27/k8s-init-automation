@@ -1,0 +1,16 @@
+---
+- name: Copy kube-install.sh script to all hosts
+  hosts: all
+
+  tasks:
+    - name: Copy kube-install.sh script
+      become: false
+      copy:
+        src: ../script/kube-install.sh
+        dest: ~/kube-install.sh
+        mode: 0755
+
+    - name: run kube-install
+      become: true
+      shell: |
+        sudo ./kube-install.sh --command 2 --k8s-version 1.30.2 --endpoint 192.168.227.11
