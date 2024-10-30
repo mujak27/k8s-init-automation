@@ -1,0 +1,39 @@
+---
+- name: Power off servers
+  hosts: all
+  become: true
+  gather_facts: true
+  
+  vars:
+    shutdown_timeout: 60
+    
+  tasks:
+    - name: Notify about shutdown
+      debug:
+        msg: "Preparing to shutdown host {{ inventory_hostname }}"
+
+    - name: Check if system is already shutting down
+      shell: systemctl is-system-running
+      register: system_status
+      ignore_errors: true
+      
+    - name: Stop all running services
+      systemd:
+        state: stopped
+        name: "{{ item }}"
+      with_items:
+        - docker
+        - kubelet
+        - containerd
+      ignore_errors: true
+      when: system_status.stdout != "stopping"
+
+    - name: Sync filesystem
+      command: sync
+      
+    - name: Power off server
+      shell: "sleep 2 && shutdown -h now"
+      async: "{{ shutdown_timeout }}"
+      poll: 0
+      ignore_errors: true
+      when: system_status.stdout != "stopping"

@@ -13,4 +13,9 @@
     - name: run kube-install
       become: true
       shell: |
-        sudo ./kube-install.sh --command 2 --k8s-version 1.30.2 --endpoint 192.168.227.11
+        sudo ./kube-install.sh --command 2 --k8s-version 1.31.1 --endpoint 192.168.227.11
+
+    # - name: run kube-install
+    #   become: true
+    #   shell: |
+    #     sudo ./kube-install.sh --command 1 --k8s-version 1.31.1 --endpoint 10.227.0.10
