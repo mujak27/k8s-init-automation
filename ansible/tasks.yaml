@@ -19,3 +19,11 @@
     #   become: true
     #   shell: |
     #     sudo ./kube-install.sh --command 1 --k8s-version 1.31.1 --endpoint 10.227.0.10
+
+
+    # - name: delete kube
+    #   become: true
+    #   shell: |
+    #     sudo ./kube-install.sh --command 3 --k8s-version 1.31.1 --endpoint 10.227.0.10
+
+

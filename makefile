@@ -8,3 +8,9 @@ disable-swap:
 
 poweroff:
 	ansible-playbook ansible/poweroff.yaml -i ansible/inventory.yaml
+
+reboot:
+	ansible-playbook ansible/reboot.yaml -i ansible/inventory.yaml
+
+containerd-cgroup:
+	ansible-playbook ansible/containerd-cgroup.yaml -i ansible/inventory.yaml

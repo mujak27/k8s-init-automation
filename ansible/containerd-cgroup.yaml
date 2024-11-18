@@ -1,0 +1,16 @@
+---
+- name: Copy kube-install.sh script to all hosts
+  hosts: all
+
+  tasks:
+    - name: Copy kube-install.sh script
+      become: true
+      copy:
+        src: ../script/config.toml
+        dest: /etc/containerd/config.toml
+        mode: 0555
+
+    - name: restart containerd
+      become: true
+      shell: |
+        systemctl restart containerd
